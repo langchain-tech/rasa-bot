@@ -1,4 +1,4 @@
-# PDF Chatbot
+# RASA CHATBOT
 
 This repository contains the code for the Zappy Healthcare Shipment Tracking Chatbot project. The goal of this project is to create an interactive chatbot that allows users to track the status of their shipment orders and handle queries related to Zappy Healthcare. The chatbot uses Rasa for natural language understanding and dialogue management, integrates with shipment tracking APIs, and utilizes a web interface for user interaction.
 
