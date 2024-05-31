@@ -1,0 +1,20 @@
+[
+  {
+    "tag_name": "entity",
+    "ids_to_tags": {
+      "1": "B-tracking_number",
+      "2": "I-tracking_number",
+      "3": "L-tracking_number",
+      "4": "U-tracking_number",
+      "0": "O"
+    },
+    "tags_to_ids": {
+      "B-tracking_number": 1,
+      "I-tracking_number": 2,
+      "L-tracking_number": 3,
+      "U-tracking_number": 4,
+      "O": 0
+    },
+    "num_tags": 5
+  }
+]

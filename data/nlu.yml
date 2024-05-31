@@ -17,6 +17,40 @@ nlu:
     - goodevening
     - good afternoon
 
+
+
+- intent: ask_order
+  examples: |
+    - What's the status of my order?
+    - Can you tell me where my order is?
+    - I want to check my order status.
+    - Is my order on the way?
+    - Track my order for me.
+    - Can you give me an update on my order?
+    - I need an update on my order status.
+    - Update me on my order, please.
+    - What's the latest on my order?
+    - Any updates on my order?
+    - Can you tell me the status of my order?
+    - Order status check.
+    - I need to know the status of my order.
+    - Give me an update on my order status.
+
+- intent: ask_order_number
+  examples: |
+    - [274305793037](tracking_number)
+    - [274455580039](tracking_number)
+    - [274436321360](tracking_number)
+    - [274632076541](tracking_number)
+    - [275101407237](tracking_number)
+    - [275037375843](tracking_number)
+
+
+- regex: tracking_number
+  examples: |
+    - \d{12}
+
+
 - intent: goodbye
   examples: |
     - cu

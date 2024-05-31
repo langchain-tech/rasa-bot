@@ -1,0 +1,6 @@
+[
+  {
+    "name": "tracking_number",
+    "pattern": "\\d{12}"
+  }
+]
