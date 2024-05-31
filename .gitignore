@@ -1,3 +1,4 @@
 rasavenv
-
+.rasa
 .env
+/actions/__pycache__
