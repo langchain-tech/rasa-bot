@@ -1,24 +1,7 @@
 version: "3.1"
 
+
 nlu:
-- intent: greet
-  examples: |
-    - hey
-    - hello
-    - hi
-    - hello there
-    - good morning
-    - good evening
-    - moin
-    - hey there
-    - let's go
-    - hey dude
-    - goodmorning
-    - goodevening
-    - good afternoon
-
-
-
 - intent: ask_order
   examples: |
     - What's the status of my order?
@@ -36,6 +19,7 @@ nlu:
     - I need to know the status of my order.
     - Give me an update on my order status.
 
+
 - intent: ask_order_number
   examples: |
     - [274305793037](tracking_number)
@@ -46,11 +30,52 @@ nlu:
     - [275037375843](tracking_number)
 
 
-- regex: tracking_number
+- intent: ask_program
   examples: |
-    - \d{12}
+    - what plans do you have
+    - what programs you will provide
+    - show me the plans you have for weight loss
+    - can you provide me your programs for weight loss
+    - for wight loss what plans you will provide
+    - can you tell me the programs that you can provide
+    - Could you outline the programs you offer?
+    - Can you share your strategies for weight loss?
+    - What weight loss programs do you have available?
+    - I'm interested to know about your plans for weight management.
+    - Can you provide information about your weight loss initiatives?
+    - What options do you have for weight loss programs?
+    - I'd like to know about the programs you offer for losing weight.
+    - What are your strategies for helping with weight loss?
+    - Can you elaborate on the weight loss plans you have?
 
 
+- intent: ask_number
+  examples: |
+    - [0](program_number)
+    - [1](program_number)
+    - [2](program_number)
+    - [3](program_number)
+    - [4](program_number)
+
+
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+
+
+    
 - intent: goodbye
   examples: |
     - cu
@@ -64,58 +89,6 @@ nlu:
     - bye bye
     - see you later
 
-- intent: affirm
-  examples: |
-    - yes
-    - y
-    - indeed
-    - of course
-    - that sounds good
-    - correct
-
-- intent: deny
-  examples: |
-    - no
-    - n
-    - never
-    - I don't think so
-    - don't like that
-    - no way
-    - not really
-
-- intent: mood_great
-  examples: |
-    - perfect
-    - great
-    - amazing
-    - feeling like a king
-    - wonderful
-    - I am feeling very good
-    - I am great
-    - I am amazing
-    - I am going to save the world
-    - super stoked
-    - extremely good
-    - so so perfect
-    - so good
-    - so perfect
-
-- intent: mood_unhappy
-  examples: |
-    - my day was horrible
-    - I am sad
-    - I don't feel very well
-    - I am disappointed
-    - super sad
-    - I'm so sad
-    - sad
-    - very sad
-    - unhappy
-    - not good
-    - not very good
-    - extremly sad
-    - so saad
-    - so sad
 
 - intent: bot_challenge
   examples: |
@@ -123,3 +96,14 @@ nlu:
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
+
+
+
+
+- regex: tracking_number
+  examples: |
+    - [0-9]{12}
+
+- regex: program_number
+  examples: |
+    - [0-9]{1}

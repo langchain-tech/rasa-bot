@@ -4,17 +4,19 @@ intents:
   - greet
   - goodbye
   - affirm
-  - deny
-  - mood_great
-  - mood_unhappy
   - bot_challenge
   - ask_order
   - ask_order_number
+  - ask_program
+  - ask_number
 
 
 
 entities:
   - tracking_number
+  - program_number
+
+
 
 slots:
   tracking_number:
@@ -23,8 +25,26 @@ slots:
       - type: from_entity
         entity: tracking_number
 
+  program_number:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: program_number
+
+  results:
+    type: text
+    mappings:
+      - type: custom
+        action: action_show_program
+
+
+
 actions:
   - action_order_details
+  - action_show_program
+  - action_show_details
+
+
 
 responses:
   utter_greet:
@@ -37,8 +57,7 @@ responses:
   - text: "Here is something to cheer you up:"
     image: "https://i.imgur.com/nGF1K8f.jpg"
 
-  utter_did_that_help:
-  - text: "Did that help you?"
+
 
   utter_happy:
   - text: "Great, carry on!"
@@ -48,6 +67,10 @@ responses:
 
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
+
+
+
+
 
 session_config:
   session_expiration_time: 60

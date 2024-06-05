@@ -7,33 +7,22 @@ stories:
   - intent: ask_order
   - action: utter_ask_order_number
   - intent: ask_order_number
+    entities:
+      - tracking_number: "274305793037"
   - action: action_order_details
 
+
+- story: program details
+  steps:
+  - intent: ask_program
+  - action: action_show_program
+  - intent: ask_number
+    entities:
+      - program_number: "1"
+  - action: action_show_details
 
 
 - story: happy path
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: mood_great
-  - action: utter_happy
-
-- story: sad path 1
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: affirm
-  - action: utter_happy
-
-- story: sad path 2
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: deny
-  - action: utter_goodbye
