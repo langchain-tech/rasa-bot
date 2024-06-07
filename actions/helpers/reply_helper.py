@@ -13,7 +13,7 @@ import pdb
 
 
 def extract_rows_excel(email: str):
-  file_path = f"{HOME_DIR}/actions/dummy_data_200_rows.csv"
+  file_path = f"{HOME_DIR}/actions/data/dummy_data_200_rows.csv"
   df = pd.read_csv(file_path)
   matching_rows = df[df['Email'] == email]
   logger.info(matching_rows)

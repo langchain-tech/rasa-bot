@@ -1,5 +1,5 @@
 rasavenv
-.rasa
+.rasa/
 .env
-
+venv
 models

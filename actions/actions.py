@@ -6,7 +6,6 @@ from rasa_sdk.executor import CollectingDispatcher
 from .helpers.reply_helper import extract_name_from_excel
 from rasa_sdk.events import SlotSet
 import pandas as pd
-import pdb
 import logging
 import requests
 
@@ -21,7 +20,7 @@ logging.basicConfig(level=logging.INFO)
 class DataloadAPI(object):
 
     def __init__(self):
-        file_path=f"{HOME_DIR}/actions/weight_management_plans.csv"
+        file_path=f"{HOME_DIR}/actions/data/weight_management_plans.csv"
         self.db = pd.read_csv(file_path)
 
     def fetch_data(self):
@@ -70,7 +69,6 @@ class ActionShowPrograms(Action):
 
         data = dataload_api.fetch_data()
         results = dataload_api.format_data(data)
-        #readable = dataload_api.format_data(data[['Plan Duration']], header=False)
         readable = data[['Plan Duration']].to_string(index=True)
         dispatcher.utter_message(text=f"Here are some programs:\n\n{readable} \n\n please select a number like 0,1,2 to know more about that program...")
 
@@ -94,7 +92,7 @@ class ActionVerifyEmail(Action):
         if email:
             name = extract_name_from_excel(email=email)
             if name:
-                result = f"Hello {name}, welcome to Zappy! We're here to assist with any questions you might have about your orders and weight loss programs. Feel free to ask!"
+                result = f"Hello {name}, welcome to Rasa bot! We're here to assist with any questions you might have about your orders and weight loss programs. Feel free to ask!"
             else:
                 result = "We couldn't find any data associated with this email, but we have received your information. We're here to assist with any questions you might have about your orders and weight loss programs. Feel free to ask!"
 
@@ -102,28 +100,6 @@ class ActionVerifyEmail(Action):
 
         return []
 
-
-
-# class ActionShowDetail(Action):
-#     def name(self) -> Text:
-#         return "action_show_details"
-
-#     def run(self, dispatcher: CollectingDispatcher,tracker: Tracker,domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-#         previous_results = tracker.get_slot("results")
-#         program_number = tracker.latest_message["text"]
-#         print(program_number)
-
-#         if int(program_number)>=0 and int(program_number)<3:
-#             req=f"what is the benifts of {program_number} program number \n here 0 programs number means (6 Months Plan) \n 1 program number means (3 Months Plan)  2 program number means Trial Plan 21 Days ."
-#             print(req)
-#             answer = chatGPT.ask(previous_results, req)
-#             dispatcher.utter_message(text = answer)
-#         else:
-#             req="Data is not availbe with this program number please recheck it and try again.."
-#             dispatcher.utter_message(text = req)
-
-#         return []
 
 
 
@@ -138,7 +114,7 @@ class ActionShowDetail(Action):
 
         program_number=int(program_number)
         if program_number>=0 and program_number<3:
-            file_path=f"{HOME_DIR}/actions/weight_management_plans.csv"
+            file_path=f"{HOME_DIR}/actions/data/weight_management_plans.csv"
             df = pd.read_csv(file_path)
             if program_number==0:
                 result = df[df['Plan Duration'] == "6 Months Plan"]
@@ -174,7 +150,7 @@ class ActionOrderDetails(Action):
 
 
         data=self.get_data(tracking_number)
-        res=f"The tracking number is: {tracking_number} and the related information for this order is \n{data}"
+        res=f"The tracking number is: {tracking_number} and the related information for this order is shown below \n{data}"
         dispatcher.utter_message(text=res)
 
         return []
@@ -183,7 +159,7 @@ class ActionOrderDetails(Action):
     @staticmethod
     def get_data(tracking_number: str) -> Dict[Text, Any]:
         try:
-            file_path=f"{HOME_DIR}/actions/dummy_data_200_rows.csv"
+            file_path=f"{HOME_DIR}/actions/data/dummy_data_200_rows.csv"
             df = pd.read_csv(file_path)
             df['Tracking Number'] = df['Tracking Number'].astype(str)
             result = df[df['Tracking Number'] == tracking_number]
@@ -210,3 +186,29 @@ class ActionOrderDetails(Action):
             return formatted_result
         except:
             return "Some issue: with dataframe"
+
+
+
+
+# class ActionShowDetail(Action):
+#     def name(self) -> Text:
+#         return "action_show_details"
+
+#     def run(self, dispatcher: CollectingDispatcher,tracker: Tracker,domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+#         previous_results = tracker.get_slot("results")
+#         program_number = tracker.latest_message["text"]
+#         print(program_number)
+
+#         if int(program_number)>=0 and int(program_number)<3:
+#             req=f"what is the benifts of {program_number} program number \n here 0 programs number means (6 Months Plan) \n 1 program number means (3 Months Plan)  2 program number means Trial Plan 21 Days ."
+#             print(req)
+#             answer = chatGPT.ask(previous_results, req)
+#             dispatcher.utter_message(text = answer)
+#         else:
+#             req="Data is not availbe with this program number please recheck it and try again.."
+#             dispatcher.utter_message(text = req)
+
+#         return []
+
+
