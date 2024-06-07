@@ -49,6 +49,31 @@ nlu:
     - Can you elaborate on the weight loss plans you have?
 
 
+- intent: ask_email
+  examples: |
+    - [narendra@gmail.com](email)
+    - [shivam@gmail.com](email)
+    - [par@gmail.com](email)
+    - [john@abc.com](email)
+    - [bob@gmail.com](email)
+    - [tom@abc.com](email)
+    - [logn@gmail.com](email)
+    - [narendra@gmail.com](email)
+    - [av3ry98@gmail.com](email)
+    - [ginamdegaetano@gmail.com](email)
+    - [ss93606@icloud.com](email)
+    - [darani100@gmail.com](email)
+    - [carlybogner@gmail.com](email)
+    - [blankmindy@gmail.com](email)
+    - [sandrabowers1@pacbell.net](email)
+    - [lrocsr4114@gmail.com](email)
+    - [megantroy@msn.com](email)
+    - [maddieeejade@gmail.com](email)
+    - [bethanyst@yahoo.com](email)
+    - [1376metz@gmail.com](email)
+
+
+
 - intent: ask_number
   examples: |
     - [0](program_number)

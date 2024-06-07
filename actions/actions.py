@@ -3,17 +3,26 @@ import os
 from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
+from .helpers.reply_helper import extract_name_from_excel
 from rasa_sdk.events import SlotSet
 import pandas as pd
 import pdb
+import logging
 import requests
 
+from dotenv import load_dotenv
+
+load_dotenv()
+HOME_DIR = os.getenv("HOME_DIR")
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
 
 
 class DataloadAPI(object):
 
     def __init__(self):
-        self.db = pd.read_csv("/home/bluebash-005/code/bluebash/rasa chatbot/zappy/actions/weight_management_plans.csv")
+        file_path=f"{HOME_DIR}/actions/weight_management_plans.csv"
+        self.db = pd.read_csv(file_path)
 
     def fetch_data(self):
         return self.db.head()
@@ -68,6 +77,31 @@ class ActionShowPrograms(Action):
         return [SlotSet("results", results)]
 
 
+class ActionVerifyEmail(Action):
+
+    def name(self) -> Text:
+        return "action_verify_email"
+
+    def run(self, dispatcher: CollectingDispatcher,tracker: Tracker,domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        email_slot = next(tracker.get_latest_entity_values("email"), None)
+        email = tracker.get_slot("email") or email_slot
+
+        session_id=tracker.sender_id
+        logging.info(session_id)
+        
+
+        if email:
+            name = extract_name_from_excel(email=email)
+            if name:
+                result = f"Hello {name}, welcome to Zappy! We're here to assist with any questions you might have about your orders and weight loss programs. Feel free to ask!"
+            else:
+                result = "We couldn't find any data associated with this email, but we have received your information. We're here to assist with any questions you might have about your orders and weight loss programs. Feel free to ask!"
+
+        dispatcher.utter_message(text=result)
+
+        return []
+
 
 
 # class ActionShowDetail(Action):
@@ -104,7 +138,8 @@ class ActionShowDetail(Action):
 
         program_number=int(program_number)
         if program_number>=0 and program_number<3:
-            df = pd.read_csv("/home/bluebash-005/code/bluebash/rasa chatbot/zappy/actions/weight_management_plans.csv")
+            file_path=f"{HOME_DIR}/actions/weight_management_plans.csv"
+            df = pd.read_csv(file_path)
             if program_number==0:
                 result = df[df['Plan Duration'] == "6 Months Plan"]
             elif program_number==1:
@@ -117,7 +152,7 @@ class ActionShowDetail(Action):
                 for key, value in item.items():
                     text_data += f"{key}: {value}\n"
 
-            print(text_data)
+            logging.info(text_data)
             dispatcher.utter_message(text = text_data)
         else:
             result="Data is not available with this program number please recheck it and try again.."
@@ -148,7 +183,8 @@ class ActionOrderDetails(Action):
     @staticmethod
     def get_data(tracking_number: str) -> Dict[Text, Any]:
         try:
-            df = pd.read_excel("/home/bluebash-005/code/bluebash/rasa chatbot/zappy/actions/TrackingNumberSheet.xlsx", sheet_name='Tracking_Sheet')
+            file_path=f"{HOME_DIR}/actions/dummy_data_200_rows.csv"
+            df = pd.read_csv(file_path)
             df['Tracking Number'] = df['Tracking Number'].astype(str)
             result = df[df['Tracking Number'] == tracking_number]
             if result.empty:

@@ -26,3 +26,6 @@ stories:
   steps:
   - intent: greet
   - action: utter_greet
+  - action: utter_ask_email
+  - intent: ask_email
+  - action: action_verify_email
